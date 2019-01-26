@@ -1,5 +1,7 @@
-"use strict";
+'use strict';
 
-$(document).ready(function() {
-	
+/* globals document, $ */
+
+$(document).ready(function () {
+
 });

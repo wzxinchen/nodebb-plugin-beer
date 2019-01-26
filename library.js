@@ -1,15 +1,14 @@
 'use strict';
 
-var meta = module.parent.require('./meta');
+const meta = module.parent.require('./meta');
+const controllers = require('./lib/controllers');
 
-var controllers = require('./lib/controllers');
-
-var plugin = {};
+const plugin = {};
 
 plugin.init = function (params, callback) {
-	var router = params.router;
-	var hostMiddleware = params.middleware;
-	var hostControllers = params.controllers;
+	const router = params.router;
+	const hostMiddleware = params.middleware;
+	// const hostControllers = params.controllers;
 
 	router.get('/admin/plugins/quickstart', hostMiddleware.admin.buildHeader, controllers.renderAdminPage);
 	router.get('/api/admin/plugins/quickstart', controllers.renderAdminPage);
