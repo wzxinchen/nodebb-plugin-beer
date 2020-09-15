@@ -5,7 +5,7 @@ const controllers = require('./lib/controllers');
 
 const plugin = {};
 
-plugin.init = function (params, callback) {
+plugin.init = async (params) => {
 	const router = params.router;
 	const hostMiddleware = params.middleware;
 	// const hostControllers = params.controllers;
@@ -13,18 +13,11 @@ plugin.init = function (params, callback) {
 	router.get('/admin/plugins/quickstart', hostMiddleware.admin.buildHeader, controllers.renderAdminPage);
 	router.get('/api/admin/plugins/quickstart', controllers.renderAdminPage);
 
-	plugin.syncSettings(callback);
+	await plugin.syncSettings();
 };
 
-plugin.syncSettings = function (callback) {
-	meta.settings.get('quickstart', function (err, settings) {
-		if (err) {
-			return callback(err);
-		}
-
-		plugin.settings = Object.assign((plugin.settings || {}), settings);
-		callback();
-	});
+plugin.syncSettings = async () => {
+	Object.assign(plugin.settings || {}, await meta.settings.get('quickstart'));
 };
 
 plugin.onSettingsChange = function (data) {
