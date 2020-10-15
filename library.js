@@ -1,6 +1,6 @@
 'use strict';
 
-const meta = require.main.require('./meta');
+const meta = require.main.require('./src/meta');
 const controllers = require('./lib/controllers');
 
 const plugin = {};
