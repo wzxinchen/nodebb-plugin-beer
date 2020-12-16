@@ -27,7 +27,7 @@ plugin.onSettingsChange = function (data) {
 };
 
 /**
- * If you wish to add routes to NodeBB's RESTful API, listen to the `static:app.routes` hook.
+ * If you wish to add routes to NodeBB's RESTful API, listen to the `static:api.routes` hook.
  * Define your routes similarly to above, and allow core to handle the response via the
  * built-in helpers.formatApiResponse() method.
  *
