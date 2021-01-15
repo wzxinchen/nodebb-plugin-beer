@@ -3,7 +3,9 @@
 const meta = require.main.require('./src/meta');
 const controllers = require('./lib/controllers');
 
-const plugin = {};
+const plugin = {
+	_defaults: {},	// set default settings here, if needed
+};
 
 plugin.init = async (params) => {
 	const router = params.router;
@@ -17,12 +19,12 @@ plugin.init = async (params) => {
 };
 
 plugin.syncSettings = async () => {
-	Object.assign(plugin.settings || {}, await meta.settings.get('quickstart'));
+	plugin.settings = Object.assign({}, plugin.settings || plugin._defaults, await meta.settings.get('quickstart'));
 };
 
 plugin.onSettingsChange = function (data) {
 	if (data.plugin === 'quickstart') {
-		plugin.settings = Object.assign((plugin.settings || {}), data.settings);
+		plugin.settings = Object.assign({}, plugin.settings || plugin._defaults, data.settings);
 	}
 };
 
