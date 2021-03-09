@@ -1,11 +1,8 @@
 'use strict';
 
-const meta = require.main.require('./src/meta');
 const controllers = require('./lib/controllers');
 
-const plugin = {
-	_defaults: {},	// set default settings here, if needed
-};
+const plugin = module.exports;
 
 plugin.init = async (params) => {
 	const { router, middleware/* , controllers */ } = params;
@@ -15,16 +12,6 @@ plugin.init = async (params) => {
 	// 	res.sendStatus(200);
 	// });
 	routeHelpers.setupAdminPageRoute(router, '/admin/plugins/quickstart', middleware, [], controllers.renderAdminPage);
-};
-
-plugin.syncSettings = async () => {
-	plugin.settings = { ...plugin.settings || plugin._defaults, ...await meta.settings.get('quickstart') };
-};
-
-plugin.onSettingsChange = function (data) {
-	if (data.plugin === 'quickstart') {
-		plugin.settings = { ...plugin.settings || plugin._defaults, ...data.settings };
-	}
 };
 
 plugin.addRoutes = async ({ router, middleware, helpers }) => {
@@ -44,5 +31,3 @@ plugin.addAdminNavigation = function (header, callback) {
 
 	callback(null, header);
 };
-
-module.exports = plugin;
