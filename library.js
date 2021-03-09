@@ -18,12 +18,12 @@ plugin.init = async (params) => {
 };
 
 plugin.syncSettings = async () => {
-	plugin.settings = Object.assign({}, plugin.settings || plugin._defaults, await meta.settings.get('quickstart'));
+	plugin.settings = { ...plugin.settings || plugin._defaults, ...await meta.settings.get('quickstart') };
 };
 
 plugin.onSettingsChange = function (data) {
 	if (data.plugin === 'quickstart') {
-		plugin.settings = Object.assign({}, plugin.settings || plugin._defaults, data.settings);
+		plugin.settings = { ...plugin.settings || plugin._defaults, ...data.settings };
 	}
 };
 
